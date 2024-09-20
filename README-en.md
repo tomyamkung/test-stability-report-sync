@@ -76,7 +76,7 @@ steps:
     run: pytest tests/ --junitxml=result.xml 
 
   - name: link Automated Test Results
-    uses: Veriserve/qf-auto-test-sync@main
+    uses: QualityForward/test-stability-report-sync@v1.0.0
     with:
       file-path: result.xml
       test-framework: pytest-playwright
