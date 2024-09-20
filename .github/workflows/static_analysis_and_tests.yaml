@@ -1,0 +1,32 @@
+name: Static Analysis and Test
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+  run-static-analysis-and-test:
+    name: Run Static Analysis and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - name: Install node modules
+        run: |
+          npm install
+      - name: Run Static Analysis
+        run: |
+          npm run lint
+          npm run lint-test
+      - name: Run Test
+        run: |
+          npm test

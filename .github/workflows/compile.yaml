@@ -1,0 +1,41 @@
+name: Compile File
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+  workflow_dispatch:
+
+jobs:
+  compile:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - name: Install package
+        run: |
+          npm install
+          npm install -g @vercel/ncc
+      - name: Compile
+        run: |
+          ncc build src/main.js
+      - name: Commit and push updated file
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          if git diff --quiet; then
+            echo "No changes to commit."
+          else
+            git add dist/index.js
+            git commit -m "Update compiled file"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+          fi
