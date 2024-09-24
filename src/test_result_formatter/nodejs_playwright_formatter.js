@@ -67,7 +67,7 @@ class NodejsPlaywrightFormatter extends TestResultFormatter {
     ) {
       this.autoTestSuiteResults[testSuite][browser] = [];
     }
-    // 指定されたキーにテスト結果を追加
+
     this.autoTestSuiteResults[testSuite][browser].push(testResult);
   }
   addPostDataList(testCycleName) {

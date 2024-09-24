@@ -9,9 +9,7 @@ class PytestPlaywrightFormatter extends TestResultFormatter {
     const testSuite = data.testsuites.testsuite[0];
     const testCycleName = testSuite["$"].timestamp;
 
-    // テスト結果挿入
     for (let testCase of testSuite.testcase) {
-      // テストケースの結果格納用オブジェクト
       let testCaseResult = {};
       let testSuiteName = this.extractTestSuiteName(testCase["$"].classname);
       let testCaseDetails = this.extractTestCaseDetails(testCase["$"].name);
@@ -52,7 +50,6 @@ class PytestPlaywrightFormatter extends TestResultFormatter {
     return this.postDataList;
   }
   extractTestSuiteName(className) {
-    // 正規表現を使って最後のドット(.)以降をマッチング
     const match = className.match(/\.([^.]+)$/);
     if (match) {
       return match[1];
@@ -96,7 +93,6 @@ class PytestPlaywrightFormatter extends TestResultFormatter {
     ) {
       this.autoTestSuiteResults[testSuite][browser] = [];
     }
-    // 指定されたキーにテスト結果を追加
     this.autoTestSuiteResults[testSuite][browser].push(testResult);
   }
   addPostDataList(testCycleName) {

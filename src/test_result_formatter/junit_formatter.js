@@ -54,7 +54,7 @@ class JUnitFormatter extends TestResultFormatter {
     ) {
       this.autoTestSuiteResults[testSuite] = [];
     }
-    // 指定されたキーにテスト結果を追加
+
     this.autoTestSuiteResults[testSuite].push(testResult);
   }
   addPostDataList(testCycleName) {

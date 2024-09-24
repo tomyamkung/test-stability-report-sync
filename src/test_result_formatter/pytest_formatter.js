@@ -44,7 +44,6 @@ class PytestFormatter extends TestResultFormatter {
     return this.postDataList;
   }
   extractTestSuiteName(className) {
-    // 正規表現を使って最後のドット(.)以降をマッチング
     const match = className.match(/\.([^.]+)$/);
     if (match) {
       return match[1];
@@ -72,7 +71,7 @@ class PytestFormatter extends TestResultFormatter {
     ) {
       this.autoTestSuiteResults[testSuite] = [];
     }
-    // 指定されたキーにテスト結果を追加
+
     this.autoTestSuiteResults[testSuite].push(testResult);
   }
   addPostDataList(testCycleName) {
