@@ -12,7 +12,7 @@
 
 ### `file-path`
 
-**必須項目** 自動テストの実行結果を格納したファイルパスを設定してください。
+**必須項目** 自動テストの実行結果を格納したファイルパスを設定してください。ワイルドカードで指定可能です。
 
 ### `test-framework`
 
@@ -50,7 +50,8 @@
 
 |テストフレームワーク|自動テストサイクル名|例|
 |:--:|:--|:--|
-|junit,pytest,nodejs-playwright,pytest-playwright|testsuite要素のtimestamp属性|2024-08-28T15:12:57.311996+09:00|
+|junit|アクション実行日時|9/26/2024, 4:10:10 AM|
+|pytest,nodejs-playwright,pytest-playwright|testsuite要素のtimestamp属性|2024-08-28T15:12:57.311996+09:00|
 |magicpod|テスト一括実行終了日時|2024-05-09T02:44:32Z|
 
 ### `auto_execution_device_external_key`
@@ -66,6 +67,8 @@
 |pytest-playwright|testcase要素のname属性から取得<br>（例）test_sample[chromium-data-driven]の場合、”chromium”を取得|
 
 ## 活用例
+
+### 特定ファイルを指定する場合
 
 ```yaml
 steps:
@@ -84,4 +87,25 @@ steps:
       auto_test_suite_external_key: testSuites
       auto_test_cycle_name: testCycleName
       auto_execution_device_external_key: sampleDevice
+```
+
+### 特定のフォルダに格納されているファイルをすべて連携する場合
+
+※同じテストフレームワークに限ります
+
+```yaml
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4 
+
+  - name: Run tests
+    run: pytest tests/ --junitxml=result.xml 
+
+  - name: link Automated Test Results
+    uses: QualityForward/test-stability-report-sync@v1.0.0
+    with:
+      file-path: results/*.xml
+      test-framework: junit
+      api-key: ${{ secrets.API_KEY }}
+      auto_execution_device_external_key: chrome
 ```
