@@ -79,7 +79,7 @@ steps:
     run: pytest tests/ --junitxml=result.xml 
 
   - name: link Automated Test Results
-    uses: QualityForward/test-stability-report-sync@v1.0.0
+    uses: QualityForward/test-stability-report-sync@v1.1.0
     with:
       file-path: result.xml
       test-framework: pytest-playwright
@@ -102,7 +102,7 @@ steps:
     run: pytest tests/ --junitxml=result.xml 
 
   - name: link Automated Test Results
-    uses: QualityForward/test-stability-report-sync@v1.0.0
+    uses: QualityForward/test-stability-report-sync@v1.1.0
     with:
       file-path: results/*.xml
       test-framework: junit
