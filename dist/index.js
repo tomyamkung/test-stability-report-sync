@@ -37686,21 +37686,21 @@ async function linkTestResults(
   apiKey
 ) {
   validateFileFormat(inputFilePath, testFramework);
-
-  const fileProcessor = getFileLoader(
-    path.extname(inputFilePath),
-    getTestResultFormatter(testFramework)
-  );
-
   const inputFilePaths = await getInputFiles(inputFilePath);
 
   try {
     const formattedList = [];
     for (const filePath of inputFilePaths) {
+      const fileProcessor = getFileLoader(
+        path.extname(filePath),
+        getTestResultFormatter(testFramework)
+      );
+
       const data = await readFileAsync(filePath);
-      const formattedData = await fileProcessor.format(data);
+      let formattedData = await fileProcessor.format(data);
       formattedList.push(formattedData);
     }
+
     await processFormattedDataList(
       formattedList,
       apiKey,
