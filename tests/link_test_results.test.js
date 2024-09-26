@@ -104,10 +104,10 @@ describe("failure scenarios", () => {
     jest.clearAllMocks();
   });
 
-  test("should alert on invalid filepath", () => {
-    expect(() =>
+  test("should alert on invalid filepath", async () => {
+    await expect(
       linkTestResults("hoge.xml", "junit", "", "", "testAPIKey")
-    ).rejects.toThrow(/no such file or directory/);
+    ).rejects.toThrow(/No files found for pattern/);
   });
 
   test("should alert on fail integration", async () => {
@@ -177,4 +177,18 @@ describe("success integration", () => {
       )
     ).resolves.not.toThrow();
   });
+
+  test("should multi file integration playwright test result", async () => {
+    const searchFilePath = path.join(__dirname, "*.xml");
+    await expect(
+      linkTestResults(searchFilePath, "junit", "", "", "", "testAPIKey")
+    ).resolves.not.toThrow();
+  }, 10000);
+
+  test("should integrate with wildcard file paths", async () => {
+    const searchFilePath = path.join(__dirname, "*.json");
+    await expect(
+      linkTestResults(searchFilePath, "magicpod", "", "", "", "testAPIKey")
+    ).resolves.not.toThrow();
+  }, 10000);
 });

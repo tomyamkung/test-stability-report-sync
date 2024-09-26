@@ -16,7 +16,7 @@ This action integrates automated test results into the QualityForward Automated 
 
 ### `test-framework`
 
-**Required**: Please configure the test framework used.
+**Required**: Please configure the test framework used. It can be specified with a wildcard.
 
 Supported Test Frameworks:
 
@@ -50,7 +50,8 @@ Default automated test cycle name if not specified:
 
 |Test Framework|Default Automated Test Cycle Name|Example|
 |:--:|:--|:--|
-|junit,pytest,nodejs-playwright,pytest-playwright|timestamp attribute of the testsuite element|2024-08-28T15:12:57.311996+09:00|
+|junit|Action Execution Date and Time|9/26/2024, 4:10:10 AM|
+|pytest,nodejs-playwright,pytest-playwright|timestamp attribute of the testsuite element|2024-08-28T15:12:57.311996+09:00|
 |magicpod|End time of bulk test execution|2024-05-09T02:44:32Z|
 
 ### `auto_execution_device_external_key`
@@ -67,6 +68,8 @@ Default automated test execution environment name if not specified:
 
 ## Example usage
 
+### When specifying a specific file
+
 ```yaml
 steps:
   - name: Checkout repository
@@ -81,4 +84,25 @@ steps:
       file-path: result.xml
       test-framework: pytest-playwright
       api-key: ${{ secrets.API_KEY }}
+```
+
+### When specifying all files stored in a specific folder
+
+※Limited to the same test framework
+
+```yaml
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4 
+
+  - name: Run tests
+    run: pytest tests/ --junitxml=result.xml 
+
+  - name: link Automated Test Results
+    uses: QualityForward/test-stability-report-sync@v1.0.0
+    with:
+      file-path: results/*.xml
+      test-framework: junit
+      api-key: ${{ secrets.API_KEY }}
+      auto_execution_device_external_key: chrome
 ```

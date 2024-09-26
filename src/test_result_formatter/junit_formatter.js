@@ -10,7 +10,8 @@ class JUnitFormatter extends TestResultFormatter {
 
     for (let testSuite of data.testsuites.testsuite) {
       let testSuiteName = testSuite["$"].name;
-      testCycleName ||= testSuite["$"].timestamp;
+      const now = new Date();
+      testCycleName = now.toLocaleString();
 
       for (let testCase of testSuite.testcase) {
         let testCaseResult = {};

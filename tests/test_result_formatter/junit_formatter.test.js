@@ -35,7 +35,6 @@ describe("In case of correct format", () => {
               skipped: "0",
               tests: "1",
               time: "1.000",
-              timestamp: "2024-04-25T09:03:08.040413",
               hostname: "test_data",
             },
             testcase: [
@@ -54,9 +53,11 @@ describe("In case of correct format", () => {
 
     const testResultFormatter = new JUnitFormatter();
     const formattedData = testResultFormatter.format(jsonData);
+    const now = new Date();
+    const testCycleName = now.toLocaleString();
     expect(formattedData[0]).toMatchObject({
       auto_test_suite_external_key: "pytest",
-      auto_test_cycle_name: "2024-04-25T09:03:08.040413",
+      auto_test_cycle_name: testCycleName,
       auto_test_results: [
         {
           auto_test_case_external_key: "test",
@@ -78,7 +79,6 @@ describe("In case of correct format", () => {
               skipped: "1",
               tests: "1",
               time: "4.000",
-              timestamp: "2024-04-25T09:03:08.040413",
               hostname: "test_data",
             },
             testcase: [
@@ -142,10 +142,12 @@ describe("In case of correct format", () => {
 
     const testResultFormatter = new JUnitFormatter();
     const formattedData = testResultFormatter.format(jsonData);
+    const now = new Date();
+    const testCycleName = now.toLocaleString();
     expect(formattedData.length).toBe(1);
     expect(formattedData[0]).toMatchObject({
       auto_test_suite_external_key: "pytest",
-      auto_test_cycle_name: "2024-04-25T09:03:08.040413",
+      auto_test_cycle_name: testCycleName,
       auto_test_results: [
         {
           auto_test_case_external_key: "test_before_today[chromium]",
@@ -225,10 +227,12 @@ describe("In case of correct format", () => {
 
     const testResultFormatter = new JUnitFormatter();
     const formattedData = testResultFormatter.format(jsonData);
+    const now = new Date();
+    const testCycleName = now.toLocaleString();
     expect(formattedData.length).toBe(2);
     expect(formattedData[0]).toMatchObject({
       auto_test_suite_external_key: "pytest",
-      auto_test_cycle_name: "2024-04-25T09:03:08.040413",
+      auto_test_cycle_name: testCycleName,
       auto_test_results: [
         {
           auto_test_case_external_key: "test_before_today[chromium]",
@@ -239,7 +243,7 @@ describe("In case of correct format", () => {
     });
     expect(formattedData[1]).toMatchObject({
       auto_test_suite_external_key: "pytest2",
-      auto_test_cycle_name: "2024-04-25T09:03:08.040413",
+      auto_test_cycle_name: testCycleName,
       auto_test_results: [
         {
           auto_test_case_external_key: "test_before_today[chromium]",
@@ -391,10 +395,12 @@ describe("In case of correct format", () => {
 
     const testResultFormatter = new JUnitFormatter();
     const formattedData = testResultFormatter.format(jsonData);
+    const now = new Date();
+    const testCycleName = now.toLocaleString();
     expect(formattedData.length).toBe(2);
     expect(formattedData[0]).toMatchObject({
       auto_test_suite_external_key: "pytest",
-      auto_test_cycle_name: "2024-04-25T09:03:08.040413",
+      auto_test_cycle_name: testCycleName,
       auto_test_results: [
         {
           auto_test_case_external_key: "test_before_today[chromium]",
@@ -423,7 +429,7 @@ describe("In case of correct format", () => {
     });
     expect(formattedData[1]).toMatchObject({
       auto_test_suite_external_key: "pytest2",
-      auto_test_cycle_name: "2024-04-25T09:03:08.040413",
+      auto_test_cycle_name: testCycleName,
       auto_test_results: [
         {
           auto_test_case_external_key: "test_before_today[chromium]",
