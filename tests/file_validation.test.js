@@ -36,6 +36,10 @@ describe("Validation success scenarios", () => {
       fileExtension: ".json",
       testFramework: "magicpod",
     },
+    {
+      fileExtension: ".json",
+      testFramework: "mabl-cli",
+    },
   ];
   test.each(fileExtensionFrameworkCombinations)(
     "should properly handle file extension %s with framework %s",
