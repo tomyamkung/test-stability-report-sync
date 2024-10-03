@@ -44,11 +44,6 @@ class MagicPodFormatter extends TestResultFormatter {
       testCaseResult.auto_execution_pattern_external_key = `${testCase.data_index}`;
     }
 
-    if (testCase.status === "succeeded") {
-      testCaseResult.result = "pass";
-    } else {
-      testCaseResult.result = "fail";
-    }
     switch (testCase.status) {
       case "succeeded":
         testCaseResult.result = "pass";
