@@ -180,7 +180,7 @@ jobs:
           auto_execution_device_external_key: Chrome
 ```
 
-#### mabl デプロイイベント
+#### mabl Deployment Event
 
 Execute a Deployment Event Using the [mabl cli](https://help.mabl.com/hc/en-us/articles/17752848113556-Mabl-CLI-overview) and Integrate the Results.
 
