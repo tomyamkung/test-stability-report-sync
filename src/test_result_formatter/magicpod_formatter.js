@@ -64,7 +64,9 @@ class MagicPodFormatter extends TestResultFormatter {
         );
     }
 
-    testCaseResult.execution_time_taken = testCase.duration_seconds * 1000;
+    const startDate = new Date(testCase.started_at);
+    const finishDate = new Date(testCase.finished_at);
+    testCaseResult.execution_time_taken = finishDate - startDate;
     testCaseResult.info_url = testCase.test_case["url"];
 
     this.results.push(testCaseResult);
