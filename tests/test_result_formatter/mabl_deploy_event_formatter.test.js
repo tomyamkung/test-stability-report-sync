@@ -1,7 +1,15 @@
-const MablCliFormatter = require("../../src/test_result_formatter/mabl_cli_formatter");
+const MablDeployEventFormatter = require("../../src/test_result_formatter/mabl_deploy_event_formatter");
 
 describe("In case of invalid format", () => {
-  test("alert for statuses that are out of scope", () => {
+  const testStatusList = [
+    "awaiting_precondition",
+    "rate_limited",
+    "queued",
+    "running",
+    "terminating",
+    "test",
+  ];
+  test.each(testStatusList)("should alert when status is %s", (testStatus) => {
     const jsonData = {
       id: "deployment_id",
       href: "deploy_URL",
@@ -28,7 +36,7 @@ describe("In case of invalid format", () => {
                 initial_url: "initial_url",
                 test_id: "test_id",
                 app_href: "result_url",
-                status: "running",
+                status: testStatus,
               },
             ],
             start_time: 1727930167078,
@@ -74,9 +82,9 @@ describe("In case of invalid format", () => {
         },
       },
     };
-    const testResultFormatter = new MablCliFormatter();
+    const testResultFormatter = new MablDeployEventFormatter();
     expect(() => testResultFormatter.format(jsonData)).toThrow(
-      "running is a status that cannot be included in the automatic test stability report."
+      `${testStatus} is a status that cannot be included in the automatic test stability report.`
     );
   });
 });
@@ -257,7 +265,7 @@ describe("Data Transformation Across Various Patterns", () => {
       },
     };
 
-    const testResultFormatter = new MablCliFormatter();
+    const testResultFormatter = new MablDeployEventFormatter();
     const testCycleName = new Date().toISOString();
     const dateOnly = testCycleName.split("T")[0];
     const formattedData = testResultFormatter.format(jsonData);
@@ -551,7 +559,7 @@ describe("Data Transformation Across Various Patterns", () => {
       },
     };
 
-    const testResultFormatter = new MablCliFormatter();
+    const testResultFormatter = new MablDeployEventFormatter();
     const testCycleName = new Date().toISOString();
     const dateOnly = testCycleName.split("T")[0];
     const formattedData = testResultFormatter.format(jsonData);
@@ -785,7 +793,7 @@ describe("Data Transformation Across Various Patterns", () => {
       },
     };
 
-    const testResultFormatter = new MablCliFormatter();
+    const testResultFormatter = new MablDeployEventFormatter();
     const testCycleName = new Date().toISOString();
     const dateOnly = testCycleName.split("T")[0];
     const formattedData = testResultFormatter.format(jsonData);
@@ -1761,7 +1769,7 @@ describe("Data Transformation Across Various Patterns", () => {
       },
     };
 
-    const testResultFormatter = new MablCliFormatter();
+    const testResultFormatter = new MablDeployEventFormatter();
     const testCycleName = new Date().toISOString();
     const dateOnly = testCycleName.split("T")[0];
     const formattedData = testResultFormatter.format(jsonData);
@@ -2465,7 +2473,7 @@ describe("Data Transformation Across Various Patterns", () => {
       },
     };
 
-    const testResultFormatter = new MablCliFormatter();
+    const testResultFormatter = new MablDeployEventFormatter();
     const testCycleName = new Date().toISOString();
     const dateOnly = testCycleName.split("T")[0];
     const formattedData = testResultFormatter.format(jsonData);
@@ -3359,7 +3367,7 @@ describe("Data Transformation Across Various Patterns", () => {
         },
       },
     };
-    const testResultFormatter = new MablCliFormatter();
+    const testResultFormatter = new MablDeployEventFormatter();
     const testCycleName = new Date().toISOString();
     const dateOnly = testCycleName.split("T")[0];
     const formattedData = testResultFormatter.format(jsonData);

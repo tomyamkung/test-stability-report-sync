@@ -38,7 +38,7 @@ describe("Validation success scenarios", () => {
     },
     {
       fileExtension: ".json",
-      testFramework: "mabl-cli",
+      testFramework: "mabl-deploy-event",
     },
   ];
   test.each(fileExtensionFrameworkCombinations)(
