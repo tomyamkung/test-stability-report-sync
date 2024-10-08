@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-10-08
+
+### Added
+
+- Add Parameter: `mabl-deploy-event`
+  - Format the Data Obtained from the mabl Deployment Event and Integrate it into the QualityForward Automated Test Stability Report
+
+### Fixed
+
+- Modified MagicPod format data formatting process
+  - Change the Item Used for Execution Time Calculation from `duration_seconds` to the Difference Between `finished_at` and `started_at`
+
 ## [1.1.0] - 2024-9-26
 
 ### Fixed
