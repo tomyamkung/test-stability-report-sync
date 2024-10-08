@@ -1,6 +1,6 @@
 const path = require("path");
 const VALID_COMBINATIONS = {
-  json: ["magicpod"],
+  json: ["magicpod", "mabl-deploy-event"],
   xml: ["junit", "nodejs-playwright", "pytest", "pytest-playwright"],
 };
 

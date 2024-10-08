@@ -44,11 +44,6 @@ class MagicPodFormatter extends TestResultFormatter {
       testCaseResult.auto_execution_pattern_external_key = `${testCase.data_index}`;
     }
 
-    if (testCase.status === "succeeded") {
-      testCaseResult.result = "pass";
-    } else {
-      testCaseResult.result = "fail";
-    }
     switch (testCase.status) {
       case "succeeded":
         testCaseResult.result = "pass";
@@ -69,7 +64,9 @@ class MagicPodFormatter extends TestResultFormatter {
         );
     }
 
-    testCaseResult.execution_time_taken = testCase.duration_seconds * 1000;
+    const startDate = new Date(testCase.started_at);
+    const finishDate = new Date(testCase.finished_at);
+    testCaseResult.execution_time_taken = finishDate - startDate;
     testCaseResult.info_url = testCase.test_case["url"];
 
     this.results.push(testCaseResult);

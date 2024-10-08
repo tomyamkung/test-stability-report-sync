@@ -8,6 +8,7 @@ jest.mock("axios");
 let jsonFilePath;
 let pytestXmlFilePath;
 let playwrightXmlFilePath;
+let mablCliJsonFilePath;
 
 beforeAll(() => {
   const jsonData = {
@@ -54,6 +55,85 @@ beforeAll(() => {
   jsonFilePath = path.join(__dirname, "testData.json");
   fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 2), "utf8");
 
+  const mablCliData = {
+    id: "deployment_id",
+    href: "deploy_URL",
+    execution_results: {
+      plan_execution_metrics: {
+        total: 1,
+        passed: 0,
+        failed: 1,
+      },
+      executions: [
+        {
+          journey_executions: [
+            {
+              run_multiplier_index: 0,
+              stop_time: 1727919356192,
+              environment_id: "environment_id",
+              browser_type: "chrome",
+              test_cases: [],
+              application_id: "application_id",
+              completed_time: 1727919356192,
+              journey_execution_id: "journey_execution_id",
+              href: "URLr",
+              journey_id: "journey_id",
+              initial_url: "initial_url",
+              test_id: "test_id",
+              app_href: "result_url",
+              status: "completed",
+            },
+          ],
+          start_time: 1727930167078,
+          journeys: [
+            {
+              name: "sample test",
+              id: "journey_id",
+              href: "url",
+              app_href: "url",
+            },
+          ],
+          stop_time: 1727930254084,
+          success: false,
+          plan: {
+            name: "sample plan",
+            id: "plan_id",
+            href: "URL",
+            app_href: "url",
+          },
+          status: "completed",
+          plan_execution: {
+            is_retry: false,
+            id: "plan_id",
+            href: "url",
+            status: "completed",
+          },
+        },
+      ],
+      journey_execution_metrics: {
+        running: 0,
+        total: 1,
+        passed: 0,
+        failed: 1,
+        terminated: 0,
+        skipped: 0,
+      },
+      event_status: {
+        succeeded_by_plan: {
+          "vL6lwEZsDCcFC5VYvhM0Jg-p": false,
+        },
+        succeeded_first_attempt: false,
+        succeeded: false,
+      },
+    },
+  };
+  mablCliJsonFilePath = path.join(__dirname, "mabl_cli.json");
+  fs.writeFileSync(
+    mablCliJsonFilePath,
+    JSON.stringify(mablCliData, null, 2),
+    "utf8"
+  );
+
   const pytestXmlData = `
     <?xml version='1.0' encoding='utf8'?>
     <testsuites>
@@ -92,6 +172,10 @@ afterAll(() => {
   if (fs.existsSync(playwrightXmlFilePath)) {
     fs.unlinkSync(playwrightXmlFilePath);
   }
+
+  if (fs.existsSync(mablCliJsonFilePath)) {
+    fs.unlinkSync(mablCliJsonFilePath);
+  }
 });
 
 describe("failure scenarios", () => {
@@ -129,7 +213,20 @@ describe("success integration", () => {
 
   test("should integration magicpod test result", async () => {
     await expect(
-      linkTestResults(jsonFilePath, "magicpod", "", "", "testAPIKey")
+      linkTestResults(jsonFilePath, "magicpod", "", "", "", "testAPIKey")
+    ).resolves.not.toThrow();
+  });
+
+  test("should integration mabl-cli test result", async () => {
+    await expect(
+      linkTestResults(
+        mablCliJsonFilePath,
+        "mabl-deploy-event",
+        "",
+        "",
+        "",
+        "testAPIKey"
+      )
     ).resolves.not.toThrow();
   });
 
@@ -186,7 +283,7 @@ describe("success integration", () => {
   }, 10000);
 
   test("should integrate with wildcard file paths", async () => {
-    const searchFilePath = path.join(__dirname, "*.json");
+    const searchFilePath = path.join(__dirname, "testData*.json");
     await expect(
       linkTestResults(searchFilePath, "magicpod", "", "", "", "testAPIKey")
     ).resolves.not.toThrow();
