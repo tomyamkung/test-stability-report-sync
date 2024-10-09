@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Modified MagicPod format data formatting process
+  - remove unnecessary object key in API integration
+
 ## [1.2.0] - 2024-10-08
 
 ### Added
