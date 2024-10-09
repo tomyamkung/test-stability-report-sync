@@ -108,6 +108,8 @@ class MablDeployEventFormatter extends TestResultFormatter {
   }
   addTestCaseToSuite(suiteKey, testCaseResult) {
     const environmentKey = testCaseResult.environmentKey;
+    delete testCaseResult.environmentKey;
+
     if (!this.autoTestSuiteResults[suiteKey].environment[environmentKey]) {
       this.autoTestSuiteResults[suiteKey].environment[environmentKey] = [];
     }
