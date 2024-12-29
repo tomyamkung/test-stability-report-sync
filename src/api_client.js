@@ -5,10 +5,12 @@ async function linkAutomatedTestStabilityReport(
   apiKey,
   autoTestSuiteKey,
   autoTestCycleName,
-  autoExecutionDeviceName
+  autoExecutionDeviceName,
+  infoURL
 ) {
   for (let data of formattedData) {
     data.api_key = apiKey;
+    data.info_url = infoURL;
     if (autoTestSuiteKey !== "") {
       data.auto_test_suite_external_key = autoTestSuiteKey;
     }

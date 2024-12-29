@@ -64,7 +64,8 @@ async function processFormattedDataList(
   apiKey,
   autoTestSuiteKey,
   autoTestCycleName,
-  autoExecutionDeviceName
+  autoExecutionDeviceName,
+  infoURL
 ) {
   for (const formattedData of formattedList) {
     await linkAutomatedTestStabilityReport(
@@ -72,7 +73,8 @@ async function processFormattedDataList(
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
+      infoURL
     );
   }
 }

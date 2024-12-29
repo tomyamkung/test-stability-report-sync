@@ -57,6 +57,10 @@ inputs:
       |nodejs-playwright|hostname attribute of the testsuite element|
       |pytest-playwright|Extracted from the name attribute of the testcase element. <br>(Example) if test_sample[chromium-data-driven], it fetches “chromium”|
 
+  info_url:
+    description: |
+      The web URL related to the result of automatic tests.
+
 runs:
   using: "node20"
   main: "dist/index.js"

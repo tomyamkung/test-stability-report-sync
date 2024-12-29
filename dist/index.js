@@ -37560,10 +37560,12 @@ async function linkAutomatedTestStabilityReport(
   apiKey,
   autoTestSuiteKey,
   autoTestCycleName,
-  autoExecutionDeviceName
+  autoExecutionDeviceName,
+  infoURL
 ) {
   for (let data of formattedData) {
     data.api_key = apiKey;
+    data.info_url = infoURL;
     if (autoTestSuiteKey !== "") {
       data.auto_test_suite_external_key = autoTestSuiteKey;
     }
@@ -37683,7 +37685,8 @@ async function linkTestResults(
   autoTestSuiteKey,
   autoTestCycleName,
   autoExecutionDeviceName,
-  apiKey
+  apiKey,
+  infoURL
 ) {
   validateFileFormat(inputFilePath, testFramework);
   const inputFilePaths = await getInputFiles(inputFilePath);
@@ -37706,7 +37709,8 @@ async function linkTestResults(
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
+      infoURL
     );
     console.log(
       "The integration of automated test results has been completed."
@@ -37735,7 +37739,8 @@ async function processFormattedDataList(
   apiKey,
   autoTestSuiteKey,
   autoTestCycleName,
-  autoExecutionDeviceName
+  autoExecutionDeviceName,
+  infoURL
 ) {
   for (const formattedData of formattedList) {
     await linkAutomatedTestStabilityReport(
@@ -37743,7 +37748,8 @@ async function processFormattedDataList(
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
+      infoURL
     );
   }
 }
@@ -45226,6 +45232,9 @@ const { linkTestResults } = __nccwpck_require__(2954);
     const autoExecutionDeviceName = core.getInput(
       "auto_execution_device_external_key"
     );
+    const infoURL = core.getInput(
+      "info_url"
+    );
 
     await linkTestResults(
       inputFilePath,
@@ -45233,7 +45242,8 @@ const { linkTestResults } = __nccwpck_require__(2954);
       autoTestSuiteKey,
       autoTestCycleName,
       autoExecutionDeviceName,
-      apiKey
+      apiKey,
+      infoURL
     );
   } catch (error) {
     core.setFailed(error.message);
