@@ -37700,7 +37700,10 @@ async function linkTestResults(
       );
 
       const data = await readFileAsync(filePath);
+      console.log(`Raw data from file ${filePath}:`, data); 
+
       let formattedData = await fileProcessor.format(data);
+      console.log(`Formatted data from file ${filePath}:`, formattedData);
       formattedList.push(formattedData);
     }
 
@@ -37715,6 +37718,7 @@ async function linkTestResults(
     console.log(
       "The integration of automated test results has been completed."
     );
+    console.log("All formatted data:", formattedList);
   } catch (error) {
     throw new Error(
       `The integration of automated test results has failed: ${error.message}`
