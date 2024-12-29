@@ -11,6 +11,9 @@ const { linkTestResults } = require("./link_test_results");
     const autoExecutionDeviceName = core.getInput(
       "auto_execution_device_external_key"
     );
+    const infoURL = core.getInput(
+      "info_url"
+    );
 
     await linkTestResults(
       inputFilePath,
@@ -18,7 +21,8 @@ const { linkTestResults } = require("./link_test_results");
       autoTestSuiteKey,
       autoTestCycleName,
       autoExecutionDeviceName,
-      apiKey
+      apiKey,
+      infoURL
     );
   } catch (error) {
     core.setFailed(error.message);

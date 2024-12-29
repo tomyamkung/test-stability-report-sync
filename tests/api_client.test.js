@@ -38,7 +38,8 @@ describe("successful integration", () => {
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
+      infoURL
     );
 
     expect(axios.post).toHaveBeenCalledTimes(1);
@@ -84,7 +85,8 @@ describe("successful integration", () => {
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
+      infoURL
     );
 
     expect(axios.post).toHaveBeenCalledTimes(1);
@@ -143,7 +145,8 @@ describe("successful integration", () => {
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
+      infoURL
     );
     expect(axios.post).toHaveBeenCalledTimes(2);
     expect(axios.post).toHaveBeenCalledWith(

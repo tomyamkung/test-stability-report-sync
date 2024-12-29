@@ -12,7 +12,8 @@ async function linkTestResults(
   autoTestSuiteKey,
   autoTestCycleName,
   autoExecutionDeviceName,
-  apiKey
+  apiKey,
+  infoURL
 ) {
   validateFileFormat(inputFilePath, testFramework);
   const inputFilePaths = await getInputFiles(inputFilePath);
@@ -35,7 +36,8 @@ async function linkTestResults(
       apiKey,
       autoTestSuiteKey,
       autoTestCycleName,
-      autoExecutionDeviceName
+      autoExecutionDeviceName,
+      infoURL
     );
     console.log(
       "The integration of automated test results has been completed."
