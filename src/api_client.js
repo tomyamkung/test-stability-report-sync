@@ -25,6 +25,7 @@ async function linkAutomatedTestStabilityReport(
 }
 async function postData(data) {
   try {
+    console.log("Sending data:", JSON.stringify(data, null, 2));
     await axios.post(
       "https://cloud.veriserve.co.jp/api/v2/auto_test_suites",
       data
