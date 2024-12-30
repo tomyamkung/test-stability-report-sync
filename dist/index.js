@@ -37575,6 +37575,11 @@ async function linkAutomatedTestStabilityReport(
     if (autoExecutionDeviceName !== "") {
       data.auto_execution_device_external_key = autoExecutionDeviceName;
     }
+    if (Array.isArray(data.auto_test_results)) {
+      data.auto_test_results.forEach((result) => {
+        result.info_url = infoURL;
+      });
+    }
     await postData(data);
   }
 }
@@ -37701,10 +37706,8 @@ async function linkTestResults(
       );
 
       const data = await readFileAsync(filePath);
-      // console.log(`Raw data from file ${filePath}:`, data); 
 
       let formattedData = await fileProcessor.format(data);
-      // console.log(`Formatted data from file ${filePath}:`, formattedData);
       formattedList.push(formattedData);
     }
 
@@ -37719,7 +37722,6 @@ async function linkTestResults(
     console.log(
       "The integration of automated test results has been completed."
     );
-    // console.log("All formatted data:", formattedList);
   } catch (error) {
     throw new Error(
       `The integration of automated test results has failed: ${error.message}`
@@ -37877,7 +37879,6 @@ class JUnitFormatter extends TestResultFormatter {
         }
 
         testCaseResult.execution_time_taken = testCase["$"].time * 1000;
-        testCaseResult.info_url = "aaa";
 
         this.addResultToAutoTestSuite(testSuiteName, testCaseResult);
       }
