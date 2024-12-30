@@ -37877,6 +37877,7 @@ class JUnitFormatter extends TestResultFormatter {
         }
 
         testCaseResult.execution_time_taken = testCase["$"].time * 1000;
+        testCaseResult.info_url = "aaa";
 
         this.addResultToAutoTestSuite(testSuiteName, testCaseResult);
       }
