@@ -37565,7 +37565,6 @@ async function linkAutomatedTestStabilityReport(
 ) {
   for (let data of formattedData) {
     data.api_key = apiKey;
-    data.info_url = infoURL;
     if (autoTestSuiteKey !== "") {
       data.auto_test_suite_external_key = autoTestSuiteKey;
     }
