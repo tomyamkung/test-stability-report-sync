@@ -37580,6 +37580,7 @@ async function linkAutomatedTestStabilityReport(
 }
 async function postData(data) {
   try {
+    console.log("data:", data);
     await axios.post(
       "https://cloud.veriserve.co.jp/api/v2/auto_test_suites",
       data
